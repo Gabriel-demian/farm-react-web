@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-//import {getProductos} from "../services/ProductosService"
+import GranjaUnica from "../Components/GranjaUnica";
+import CardColumns from 'react-bootstrap/CardColumns';
+import {getFarms} from "../Services/FarmService";
 //import firebase from "../Config/firebase"
 
 
@@ -7,13 +9,17 @@ class Home extends Component{
     constructor(){
         super()
         this.state={
-            productos:[],
+            farms:[],
             loading:true
         }
     }
     async componentWillMount(){
         console.log("componentDidMount")
         /* 
+        ****************************
+        *******FIREBASE
+        ****************************
+        Queda comentado el código para obtener productos de la base de firebase 
         firebase.db.collection("productos")
         .get()
         .then(querySnapshot=>{
@@ -22,19 +28,35 @@ class Home extends Component{
                 loading:false
             })
         })
+
+        En caso de volver a tomar productos de firebase en Render utilizar lo siguiente como ejemplo 
+         <CardColumns>
+                    {this.state.productos.map(producto=><ProductoUnico key={producto.id} id={producto.id} data={producto.data()} buttons={true}/>)}
+        </CardColumns>
         */
-       /* Se comenta el uso de Axios 
-        let result = await getProductos();
+
+         
+       /*****************************
+       *******AXIOS
+       *****************************/
+
+        let result = await getFarms();
 
         console.log("result", result);
         if(result.data.length>0){
             this.setState({
-                productos:result.data,
+                farms:result.data,
                 loading:false
             })
         }
+        /*
         //En caso de volver a usar utilizar esta linea en el render
         {this.state.productos.map(producto=><ProductoUnico key={producto.id} data={producto} buttons={true}/>)}
+
+
+        <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '50vh'}}>
+            <h1> TENGO GRANJAS!! </h1>
+        </div>
         */
     }
     render(){
@@ -48,9 +70,11 @@ class Home extends Component{
             )
         }else{
             return (
-                <div>
-                    Página en construcción!!
-                </div>
+                <CardColumns>
+                    <div>
+                        {this.state.farms.map(farm=><GranjaUnica key={farm.id} data={farm} buttons={true}/>)}
+                    </div>
+                </CardColumns>
             )
         } 
     }
