@@ -1,5 +1,14 @@
 # Getting Started with Create React App
 
+# A tener en cuenta
+npm install --save mdbreact \
+npm install --save firebase\
+npm install --save axios\
+npm install --save react-bootstrap\
+npm install --save reactstrap react react-dom
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
